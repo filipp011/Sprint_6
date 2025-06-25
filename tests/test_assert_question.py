@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from locators.question_locators import QuestionLocators
-from page_objects.main_page import QuestionOne
+from page_objects.main_page import Question
 
 class TestAssertQuestion:
     @pytest.mark.parametrize("question_locator, answer_locator, expected_text", [
@@ -51,7 +51,7 @@ class TestAssertQuestion:
         driver.get('https://qa-scooter.praktikum-services.ru/')
         
         # Инициализация страницы с параметрами
-        page = QuestionOne(driver, question_locator, answer_locator, expected_text)
+        page = Question(driver, question_locator, answer_locator, expected_text)
         
         # Скроллим и кликаем по вопросу
         page.scroll_to_element()

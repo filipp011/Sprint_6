@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class BaseLocators():
+class OrderLocators():
     # Кнопка куки
     COOKIE = (By.XPATH, ".//button[@class='App_CookieButton__3cvqF']")
     #Кнопка Заказать в header

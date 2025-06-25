@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from locators.question_locators import QuestionLocators
 
-class QuestionOne():
+class Question():
     def __init__(self, driver, question_locator, answer_locator, expected_text):
         self.driver = driver
         self.locators = QuestionLocators
