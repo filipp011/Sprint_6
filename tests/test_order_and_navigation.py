@@ -2,8 +2,13 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.webdriver import WebDriver
 from conftest import driver
-from page_objects.order_page import OrderPage
-import time
+from page_objects.main_page import Main
+from page_objects.order_for_whom_page import ForWhom
+from page_objects.order_rent_page import Rent
+from page_objects.popup_confirmation_page import PopUpConfirmation
+from page_objects.popup_order_success import PopUpSuccess
+from page_objects.popup_number_order import PopUpNumberOrder
+from page_objects.status_page import StatusPage
 
 class TestOrder:
     @pytest.mark.parametrize("name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color", [
@@ -12,50 +17,53 @@ class TestOrder:
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
         driver.get('https://qa-scooter.praktikum-services.ru/')
-        order_page = OrderPage(driver)
-
+        order_for_whom_page = ForWhom(driver)
+        main_page = Main(driver)
+        order_rent_page = Rent(driver)
+        popup_order_success = PopUpSuccess(driver)
+        popup_confirmation_page = PopUpConfirmation(driver)
         # Клик по кнопке принять куки
-        order_page.click_button_cookie()
+        main_page.click_button_cookie()
         # Выполняем оформление заказа
-        order_page.click_button_order()
+        main_page.click_button_order()
         # Вводим имя
-        order_page.input_name(name)
+        order_for_whom_page.input_name(name)
         # Вводим фамилию
-        order_page.input_last_name(last_name)
+        order_for_whom_page.input_last_name(last_name)
         # Вводим адрес
-        order_page.input_address(address)
+        order_for_whom_page.input_address(address)
         # Выбираем метро
-        order_page.click_input_metro()
-        order_page.select_metro(metro)
+        order_for_whom_page.click_input_metro()
+        order_for_whom_page.select_metro(metro)
         # Вводим телефон
-        order_page.input_telephone(telephone)
+        order_for_whom_page.input_telephone(telephone)
         # Кликаем по кнопке далее
-        order_page.click_button_next()
+        order_for_whom_page.click_button_next()
         # Выбираем дату доставки
-        order_page.click_when_delivery()
+        order_rent_page.click_when_delivery()
         # Ожидаем что меню с датами появилось
-        order_page.wait_list_day()
-        order_page.select_delivery_date(delivery_date)
+        order_rent_page.wait_list_day()
+        order_rent_page.select_delivery_date(delivery_date)
         # Выбор сутки
-        order_page.click_select_time(rent_time)
+        order_rent_page.click_select_time(rent_time)
         # Ожидание что чек-бокс кликабелен
-        order_page.wait_chekboks_clickable()
+        order_rent_page.wait_chekboks_clickable()
         # Выбор цвета самоката
-        order_page.click_color_samokat(color)
+        order_rent_page.click_color_samokat(color)
         # Комментарий для курьера
-        order_page.input_comment(comment)
+        order_rent_page.input_comment(comment)
         # Ожидаем что кнопка заказа кликабельна
-        order_page.wait_clikable_button_order()
+        order_rent_page.wait_clikable_button_order()
         # Оформляем заказ
-        order_page.click_button_order()
+        order_rent_page.click_button_order()
         # Ожидаем поп-ап с подтверждением
-        order_page.wait_pop_up_yes_or_no()
+        popup_confirmation_page.wait_pop_up_yes_or_no()
         # Подтверждаем заказ
-        order_page.click_button_yes()
-        # Ожидаем поп-ап
-        order_page.wait_pop_up()
+        popup_confirmation_page.click_button_yes()
+        # Ожидаем поп-ап об успешном заказе
+        popup_order_success.wait_pop_up()
         # Проверяем текст в поп-апе
-        result_text = order_page.get_description()
+        result_text = popup_order_success.get_description()
         # Проверяем, что заказ оформлен
         assert "Заказ оформлен" in result_text
 
@@ -67,54 +75,59 @@ class TestRedirectMainPage:
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
         driver.get('https://qa-scooter.praktikum-services.ru/')
-        order_page = OrderPage(driver)
-
+        order_for_whom_page = ForWhom(driver)
+        main_page = Main(driver)
+        order_rent_page = Rent(driver)
+        #popup_order_success = PopUpSuccess(driver)
+        popup_confirmation_page = PopUpConfirmation(driver)
+        popup_number_order = PopUpNumberOrder(driver)
+        status_page = StatusPage(driver)
         # Клик по кнопке принять куки
-        order_page.click_button_cookie()
+        main_page.click_button_cookie()
         # Выполняем оформление заказа
-        order_page.click_button_order()
+        main_page.click_button_order()
         # Вводим имя
-        order_page.input_name(name)
+        order_for_whom_page.input_name(name)
         # Вводим фамилию
-        order_page.input_last_name(last_name)
+        order_for_whom_page.input_last_name(last_name)
         # Вводим адрес
-        order_page.input_address(address)
+        order_for_whom_page.input_address(address)
         # Выбираем метро
-        order_page.click_input_metro()
-        order_page.select_metro(metro)
+        order_for_whom_page.click_input_metro()
+        order_for_whom_page.select_metro(metro)
         # Вводим телефон
-        order_page.input_telephone(telephone)
+        order_for_whom_page.input_telephone(telephone)
         # Кликаем по кнопке далее
-        order_page.click_button_next()
+        order_for_whom_page.click_button_next()
         # Выбираем дату доставки
-        order_page.click_when_delivery()
+        order_rent_page.click_when_delivery()
         # Ожидаем что меню с датами появилось
-        order_page.wait_list_day()
-        order_page.select_delivery_date(delivery_date)
+        order_rent_page.wait_list_day()
+        order_rent_page.select_delivery_date(delivery_date)
         # Выбор сутки
-        order_page.click_select_time(rent_time)
+        order_rent_page.click_select_time(rent_time)
         # Ожидание что чек-бокс кликабелен
-        order_page.wait_chekboks_clickable()
+        order_rent_page.wait_chekboks_clickable()
         # Выбор цвета самоката
-        order_page.click_color_samokat(color)
+        order_rent_page.click_color_samokat(color)
         # Комментарий для курьера
-        order_page.input_comment(comment)
+        order_rent_page.input_comment(comment)
         # Ожидаем что кнопка заказа кликабельна
-        order_page.wait_clikable_button_order()
+        order_rent_page.wait_clikable_button_order()
         # Оформляем заказ
-        order_page.click_button_order()
+        order_rent_page.click_button_order()
         # Ожидаем поп-ап с подтверждением
-        order_page.wait_pop_up_yes_or_no()
+        popup_confirmation_page.wait_pop_up_yes_or_no()
         # Подтверждаем заказ
-        order_page.click_button_yes()
+        popup_confirmation_page.click_button_yes()
         # Кликаем переходим на страницу статуса заказа
-        order_page.click_button_status()
+        popup_number_order.click_button_status()
         # Кликаем на часть лого самокат
-        order_page.click_logo_samokat()
+        status_page.click_logo_samokat()
         # Проверяем, что перешли на главную страницу Яндекс Самоката
-        order_page.get_url_main_page()
+        status_page.get_url_main_page()
 
-        assert order_page.get_url_main_page()
+        assert status_page.get_url_main_page()
 
 
     class TestRedirectDzen:
@@ -124,55 +137,60 @@ class TestRedirectMainPage:
     ])
         def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
             driver.get('https://qa-scooter.praktikum-services.ru/')
-            order_page = OrderPage(driver)
-
+            order_page_for_whom_page = ForWhom(driver)
+            main_page = Main(driver)
+            order_rent_page = Rent(driver)
+            #popup_order_success = PopUpSuccess(driver)
+            popup_confirmation_page = PopUpConfirmation(driver)
+            popup_number_order = PopUpNumberOrder(driver)
+            status_page = StatusPage(driver)
             # Клик по кнопке принять куки
-            order_page.click_button_cookie()
+            main_page.click_button_cookie()
             # Выполняем оформление заказа
-            order_page.click_button_order()
+            main_page.click_button_order()
             # Вводим имя
-            order_page.input_name(name)
+            order_page_for_whom_page.input_name(name)
             # Вводим фамилию
-            order_page.input_last_name(last_name)
+            order_page_for_whom_page.input_last_name(last_name)
             # Вводим адрес
-            order_page.input_address(address)
+            order_page_for_whom_page.input_address(address)
             # Выбираем метро
-            order_page.click_input_metro()
-            order_page.select_metro(metro)
+            order_page_for_whom_page.click_input_metro()
+            order_page_for_whom_page.select_metro(metro)
             # Вводим телефон
-            order_page.input_telephone(telephone)
+            order_page_for_whom_page.input_telephone(telephone)
             # Кликаем по кнопке далее
-            order_page.click_button_next()
+            order_page_for_whom_page.click_button_next()
             # Выбираем дату доставки
-            order_page.click_when_delivery()
+            order_rent_page.click_when_delivery()
             # Ожидаем что меню с датами появилось
-            order_page.wait_list_day()
-            order_page.select_delivery_date(delivery_date)
+            order_rent_page.wait_list_day()
+            order_rent_page.select_delivery_date(delivery_date)
             # Выбор сутки
-            order_page.click_select_time(rent_time)
+            order_rent_page.click_select_time(rent_time)
             # Ожидание что чек-бокс кликабелен
-            order_page.wait_chekboks_clickable()
+            order_rent_page.wait_chekboks_clickable()
             # Выбор цвета самоката
-            order_page.click_color_samokat(color)
+            order_rent_page.click_color_samokat(color)
             # Комментарий для курьера
-            order_page.input_comment(comment)
+            order_rent_page.input_comment(comment)
             # Ожидаем что кнопка заказа кликабельна
-            order_page.wait_clikable_button_order()
+            order_rent_page.wait_clikable_button_order()
             # Оформляем заказ
-            order_page.click_button_order()
+            order_rent_page.click_button_order()
             # Ожидаем поп-ап с подтверждением
-            order_page.wait_pop_up_yes_or_no()
+            popup_confirmation_page.wait_pop_up_yes_or_no()
             # Подтверждаем заказ
-            order_page.click_button_yes()
-            # Кликаем и переходим на страницу статуса заказа
-            order_page.click_button_status()
+            popup_confirmation_page.click_button_yes()
+            # Кликаем переходим на страницу статуса заказа
+            popup_number_order.click_button_status()
             # Кликаем на лого Яндекса
-            order_page.click_logo_ya()
+            status_page.click_logo_ya()
             # Ожидаем появление нового окна
-            order_page.wait_new_window_dzen()
+            status_page.wait_new_window_dzen()
             # Переключаемся на новое окно
-            order_page.switch_new_window()
+            status_page.switch_new_window()
             # Проверяем, что перешли на Дзен
-            order_page.check_new_window_dzen()
-            current_url = order_page.check_new_window_dzen()
+            status_page.check_new_window_dzen()
+            current_url = status_page.check_new_window_dzen()
             assert current_url == "https://dzen.ru/?yredirect=true"

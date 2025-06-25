@@ -1,7 +1,8 @@
 import pytest
 from selenium import webdriver
 from locators.question_locators import QuestionLocators
-from page_objects.main_page import Question
+from page_objects.main_page import Main
+from page_objects.faq_page import Faq
 
 class TestAssertQuestion:
     @pytest.mark.parametrize("question_locator, answer_locator, expected_text", [
@@ -50,15 +51,19 @@ class TestAssertQuestion:
         # Открываем страницу
         driver.get('https://qa-scooter.praktikum-services.ru/')
         
-        # Инициализация страницы с параметрами
-        page = Question(driver, question_locator, answer_locator, expected_text)
+        # Инициализация главной страницы и клик по кнопке куки
+        main_page = Main(driver)
+        main_page.click_button_cookie()
+        
+        # Инициализация страницы FAQ с параметрами
+        faq_page = Faq(driver, question_locator, answer_locator, expected_text)
         
         # Скроллим и кликаем по вопросу
-        page.scroll_to_element()
+        faq_page.scroll_to_element()
         
         # Ждем появления текста
-        page.wait_open_drop_down_and_text_visible()
+        faq_page.wait_open_drop_down_and_text_visible()
         
         # Получаем текст и сравниваем
-        description = page.get_description()
+        description = faq_page.get_description()
         assert description == expected_text
