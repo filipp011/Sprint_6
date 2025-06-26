@@ -18,19 +18,18 @@ class StatusPage(BasePage):
         current_url = self.driver.current_url
         return current_url == expected_url
 
-     # Клик на лого Яндекса
-    def click_logo_ya(self):
-        self.driver.find_element(*OrderLocators.BTN_LOGO_YA).click()
-
     # Ожидаем появление нового окна
     def wait_new_window_dzen(self):
         WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))
+
+    def click_logo_and_switch_window(self):
+    # Клик на лого Яндекса
+        self.driver.find_element(*OrderLocators.BTN_LOGO_YA).click()
     
-    # Переключаемся на новое окно 
-    def switch_new_window(self):
+    # Переключаемся на новое окно
         new_window = self.driver.window_handles[1]
         self.driver.switch_to.window(new_window)
-
+    
     # Проверяем что перешли на Дзен
     def check_new_window_dzen(self):
         WebDriverWait(self.driver, 10).until(EC.url_to_be("https://dzen.ru/?yredirect=true"))

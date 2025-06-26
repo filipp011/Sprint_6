@@ -18,43 +18,24 @@ class TestOrder:
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
         driver.get(BASE_URL)
-        order_for_whom_page = ForWhom(driver)
+
+        # Инициализация страниц
         main_page = Main(driver)
+        order_for_whom_page = ForWhom(driver)
         order_rent_page = Rent(driver)
         popup_order_success = PopUpSuccess(driver)
         popup_confirmation_page = PopUpConfirmation(driver)
 
-        # Выполняем оформление заказа
+        # Оформление заказа
         main_page.click_button_order()
-        # Вводим имя
-        order_for_whom_page.input_name(name)
-        # Вводим фамилию
-        order_for_whom_page.input_last_name(last_name)
-        # Вводим адрес
-        order_for_whom_page.input_address(address)
-        # Выбираем метро
-        order_for_whom_page.click_input_metro()
-        order_for_whom_page.select_metro(metro)
-        # Вводим телефон
-        order_for_whom_page.input_telephone(telephone)
-        # Кликаем по кнопке далее
-        order_for_whom_page.click_button_next()
-        # Выбираем дату доставки
-        order_rent_page.click_when_delivery()
-        order_rent_page.select_delivery_date(delivery_date)
-        # Выбор сутки
-        order_rent_page.click_select_time(rent_time)
-        # Выбор цвета самоката
-        order_rent_page.click_color_samokat(color)
-        # Комментарий для курьера
-        order_rent_page.input_comment(comment)
-        # Оформляем заказ
-        order_rent_page.click_button_order()
-        # Подтверждаем заказ
+        # Заполнение формы заказа
+        order_for_whom_page.fill_order_form(name, last_name, address, metro, telephone)
+        # Выбор даты доставки и деталей аренды
+        order_rent_page.fill_rent_order_form(delivery_date, rent_time, color, comment)
+        # Подтверждение заказа
         popup_confirmation_page.click_button_yes()
-        # Проверяем текст в поп-апе
+        # Проверка успешного оформления заказа
         result_text = popup_order_success.get_description()
-        # Проверяем, что заказ оформлен
         assert "Заказ оформлен" in result_text
 
 
@@ -72,32 +53,12 @@ class TestRedirectMainPage:
         popup_number_order = PopUpNumberOrder(driver)
         status_page = StatusPage(driver)
 
-        # Выполняем оформление заказа
+        # Оформление заказа
         main_page.click_button_order()
-        # Вводим имя
-        order_for_whom_page.input_name(name)
-        # Вводим фамилию
-        order_for_whom_page.input_last_name(last_name)
-        # Вводим адрес
-        order_for_whom_page.input_address(address)
-        # Выбираем метро
-        order_for_whom_page.click_input_metro()
-        order_for_whom_page.select_metro(metro)
-        # Вводим телефон
-        order_for_whom_page.input_telephone(telephone)
-        # Кликаем по кнопке далее
-        order_for_whom_page.click_button_next()
-        # Выбираем дату доставки
-        order_rent_page.click_when_delivery()
-        order_rent_page.select_delivery_date(delivery_date)
-        # Выбор сутки
-        order_rent_page.click_select_time(rent_time)
-        # Выбор цвета самоката
-        order_rent_page.click_color_samokat(color)
-        # Комментарий для курьера
-        order_rent_page.input_comment(comment)
-        # Оформляем заказ
-        order_rent_page.click_button_order()
+        # Заполнение формы заказа
+        order_for_whom_page.fill_order_form(name, last_name, address, metro, telephone)
+        # Выбор даты доставки и деталей аренды
+        order_rent_page.fill_rent_order_form(delivery_date, rent_time, color, comment)
         # Подтверждаем заказ
         popup_confirmation_page.click_button_yes()
         # Кликаем переходим на страницу статуса заказа
@@ -117,47 +78,25 @@ class TestRedirectMainPage:
     ])
         def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
             driver.get(BASE_URL)
-            order_page_for_whom_page = ForWhom(driver)
+            order_for_whom_page = ForWhom(driver)
             main_page = Main(driver)
             order_rent_page = Rent(driver)
             popup_confirmation_page = PopUpConfirmation(driver)
             popup_number_order = PopUpNumberOrder(driver)
             status_page = StatusPage(driver)
 
-            # Выполняем оформление заказа
+            # Оформление заказа
             main_page.click_button_order()
-            # Вводим имя
-            order_page_for_whom_page.input_name(name)
-            # Вводим фамилию
-            order_page_for_whom_page.input_last_name(last_name)
-            # Вводим адрес
-            order_page_for_whom_page.input_address(address)
-            # Выбираем метро
-            order_page_for_whom_page.click_input_metro()
-            order_page_for_whom_page.select_metro(metro)
-            # Вводим телефон
-            order_page_for_whom_page.input_telephone(telephone)
-            # Кликаем по кнопке далее
-            order_page_for_whom_page.click_button_next()
-            # Выбираем дату доставки
-            order_rent_page.click_when_delivery()
-            order_rent_page.select_delivery_date(delivery_date)
-            # Выбор сутки
-            order_rent_page.click_select_time(rent_time)
-            # Выбор цвета самоката
-            order_rent_page.click_color_samokat(color)
-            # Комментарий для курьера
-            order_rent_page.input_comment(comment)
-            # Оформляем заказ
-            order_rent_page.click_button_order()
+            # Заполнение формы заказа
+            order_for_whom_page.fill_order_form(name, last_name, address, metro, telephone)
+            # Выбор даты доставки и деталей аренды
+            order_rent_page.fill_rent_order_form(delivery_date, rent_time, color, comment)
             # Подтверждаем заказ
             popup_confirmation_page.click_button_yes()
             # Кликаем переходим на страницу статуса заказа
             popup_number_order.click_button_status()
             # Кликаем на лого Яндекса
-            status_page.click_logo_ya()
-            # Переключаемся на новое окно
-            status_page.switch_new_window()
+            status_page.click_logo_and_switch_window()
             # Проверяем, что перешли на Дзен
             status_page.check_new_window_dzen()
             current_url = status_page.check_new_window_dzen()
