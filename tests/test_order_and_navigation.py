@@ -41,27 +41,17 @@ class TestOrder:
         order_for_whom_page.click_button_next()
         # Выбираем дату доставки
         order_rent_page.click_when_delivery()
-        # Ожидаем что меню с датами появилось
-        order_rent_page.wait_list_day()
         order_rent_page.select_delivery_date(delivery_date)
         # Выбор сутки
         order_rent_page.click_select_time(rent_time)
-        # Ожидание что чек-бокс кликабелен
-        order_rent_page.wait_chekboks_clickable()
         # Выбор цвета самоката
         order_rent_page.click_color_samokat(color)
         # Комментарий для курьера
         order_rent_page.input_comment(comment)
-        # Ожидаем что кнопка заказа кликабельна
-        order_rent_page.wait_clikable_button_order()
         # Оформляем заказ
         order_rent_page.click_button_order()
-        # Ожидаем поп-ап с подтверждением
-        popup_confirmation_page.wait_pop_up_yes_or_no()
         # Подтверждаем заказ
         popup_confirmation_page.click_button_yes()
-        # Ожидаем поп-ап об успешном заказе
-        popup_order_success.wait_pop_up()
         # Проверяем текст в поп-апе
         result_text = popup_order_success.get_description()
         # Проверяем, что заказ оформлен
@@ -99,23 +89,15 @@ class TestRedirectMainPage:
         order_for_whom_page.click_button_next()
         # Выбираем дату доставки
         order_rent_page.click_when_delivery()
-        # Ожидаем что меню с датами появилось
-        order_rent_page.wait_list_day()
         order_rent_page.select_delivery_date(delivery_date)
         # Выбор сутки
         order_rent_page.click_select_time(rent_time)
-        # Ожидание что чек-бокс кликабелен
-        order_rent_page.wait_chekboks_clickable()
         # Выбор цвета самоката
         order_rent_page.click_color_samokat(color)
         # Комментарий для курьера
         order_rent_page.input_comment(comment)
-        # Ожидаем что кнопка заказа кликабельна
-        order_rent_page.wait_clikable_button_order()
         # Оформляем заказ
         order_rent_page.click_button_order()
-        # Ожидаем поп-ап с подтверждением
-        popup_confirmation_page.wait_pop_up_yes_or_no()
         # Подтверждаем заказ
         popup_confirmation_page.click_button_yes()
         # Кликаем переходим на страницу статуса заказа
@@ -164,26 +146,18 @@ class TestRedirectMainPage:
             order_rent_page.select_delivery_date(delivery_date)
             # Выбор сутки
             order_rent_page.click_select_time(rent_time)
-            # Ожидание что чек-бокс кликабелен
-            order_rent_page.wait_chekboks_clickable()
             # Выбор цвета самоката
             order_rent_page.click_color_samokat(color)
             # Комментарий для курьера
             order_rent_page.input_comment(comment)
-            # Ожидаем что кнопка заказа кликабельна
-            order_rent_page.wait_clikable_button_order()
             # Оформляем заказ
             order_rent_page.click_button_order()
-            # Ожидаем поп-ап с подтверждением
-            popup_confirmation_page.wait_pop_up_yes_or_no()
             # Подтверждаем заказ
             popup_confirmation_page.click_button_yes()
             # Кликаем переходим на страницу статуса заказа
             popup_number_order.click_button_status()
             # Кликаем на лого Яндекса
             status_page.click_logo_ya()
-            # Ожидаем появление нового окна
-            status_page.wait_new_window_dzen()
             # Переключаемся на новое окно
             status_page.switch_new_window()
             # Проверяем, что перешли на Дзен

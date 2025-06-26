@@ -59,9 +59,6 @@ class TestAssertQuestion:
         # Скроллим и кликаем по вопросу
         faq_page.scroll_to_element(question_locator)
         
-        # Ждем появления текста
-        faq_page.wait_open_drop_down_and_text_visible()
-        
         # Получаем текст и сравниваем
         description = faq_page.get_description()
         assert description == expected_text

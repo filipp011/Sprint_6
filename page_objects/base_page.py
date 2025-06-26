@@ -7,10 +7,6 @@ from locators.question_locators import QuestionLocators
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-
-    # Клик по кнопке Принять куки
-    #def click_button_cookie(self):
-        #self.driver.find_element(*OrderLocators.COOKIE).click()
         
     # Скролл до элемента
     def scroll_to_element(self, locator):
