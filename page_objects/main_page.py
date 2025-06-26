@@ -8,6 +8,7 @@ class Main(BasePage):
         # Инициализация родительского класса
         super().__init__(driver) 
 
-    # Клик по кнопке заказать
+    # Клик по кнопке заказать и принять куки
     def click_button_order(self):
         self.driver.find_element(*OrderLocators.BTN_ORDER_HEADER).click()
+        self.driver.find_element(*OrderLocators.COOKIE).click()
