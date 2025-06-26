@@ -1,17 +1,12 @@
-import allure
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from locators.order_locators import OrderLocators
-from locators.question_locators import QuestionLocators
+from page_objects.base_page import BasePage
 
-class Main():
+class Main(BasePage):
     def __init__(self, driver):
-        self.driver = driver
-
-    # Клик по кнопке Принять куки
-    def click_button_cookie(self):
-        self.driver.find_element(*OrderLocators.COOKIE).click()
+        # Инициализация родительского класса
+        super().__init__(driver) 
 
     # Клик по кнопке заказать
     def click_button_order(self):

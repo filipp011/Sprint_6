@@ -3,6 +3,8 @@ from selenium import webdriver
 from locators.question_locators import QuestionLocators
 from page_objects.main_page import Main
 from page_objects.faq_page import Faq
+from page_objects.base_page import BasePage
+from data import BASE_URL
 
 class TestAssertQuestion:
     @pytest.mark.parametrize("question_locator, answer_locator, expected_text", [
@@ -49,17 +51,13 @@ class TestAssertQuestion:
     ])
     def test_faq_question(self, driver, question_locator, answer_locator, expected_text):
         # Открываем страницу
-        driver.get('https://qa-scooter.praktikum-services.ru/')
-        
-        # Инициализация главной страницы и клик по кнопке куки
-        main_page = Main(driver)
-        main_page.click_button_cookie()
+        driver.get(BASE_URL)
         
         # Инициализация страницы FAQ с параметрами
         faq_page = Faq(driver, question_locator, answer_locator, expected_text)
-        
+
         # Скроллим и кликаем по вопросу
-        faq_page.scroll_to_element()
+        faq_page.scroll_to_element(question_locator)
         
         # Ждем появления текста
         faq_page.wait_open_drop_down_and_text_visible()

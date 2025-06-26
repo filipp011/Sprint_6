@@ -1,12 +1,12 @@
-import allure
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from locators.order_locators import OrderLocators
+from page_objects.base_page import BasePage
 
-class PopUpConfirmation():
+class PopUpConfirmation(BasePage):
     def __init__(self, driver):
-        self.driver = driver
+        # Инициализация родительского класса
+        super().__init__(driver) 
 
     # Ожидание поп-апа подтверждения
     def wait_pop_up_yes_or_no(self):

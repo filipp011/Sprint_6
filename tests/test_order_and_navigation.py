@@ -9,6 +9,7 @@ from page_objects.popup_confirmation_page import PopUpConfirmation
 from page_objects.popup_order_success import PopUpSuccess
 from page_objects.popup_number_order import PopUpNumberOrder
 from page_objects.status_page import StatusPage
+from data import BASE_URL, DZEN_URL
 
 class TestOrder:
     @pytest.mark.parametrize("name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color", [
@@ -16,14 +17,13 @@ class TestOrder:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-        driver.get('https://qa-scooter.praktikum-services.ru/')
+        driver.get(BASE_URL)
         order_for_whom_page = ForWhom(driver)
         main_page = Main(driver)
         order_rent_page = Rent(driver)
         popup_order_success = PopUpSuccess(driver)
         popup_confirmation_page = PopUpConfirmation(driver)
-        # Клик по кнопке принять куки
-        main_page.click_button_cookie()
+
         # Выполняем оформление заказа
         main_page.click_button_order()
         # Вводим имя
@@ -74,16 +74,14 @@ class TestRedirectMainPage:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-        driver.get('https://qa-scooter.praktikum-services.ru/')
+        driver.get(BASE_URL)
         order_for_whom_page = ForWhom(driver)
         main_page = Main(driver)
         order_rent_page = Rent(driver)
-        #popup_order_success = PopUpSuccess(driver)
         popup_confirmation_page = PopUpConfirmation(driver)
         popup_number_order = PopUpNumberOrder(driver)
         status_page = StatusPage(driver)
-        # Клик по кнопке принять куки
-        main_page.click_button_cookie()
+
         # Выполняем оформление заказа
         main_page.click_button_order()
         # Вводим имя
@@ -136,16 +134,14 @@ class TestRedirectMainPage:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
         def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-            driver.get('https://qa-scooter.praktikum-services.ru/')
+            driver.get(BASE_URL)
             order_page_for_whom_page = ForWhom(driver)
             main_page = Main(driver)
             order_rent_page = Rent(driver)
-            #popup_order_success = PopUpSuccess(driver)
             popup_confirmation_page = PopUpConfirmation(driver)
             popup_number_order = PopUpNumberOrder(driver)
             status_page = StatusPage(driver)
-            # Клик по кнопке принять куки
-            main_page.click_button_cookie()
+
             # Выполняем оформление заказа
             main_page.click_button_order()
             # Вводим имя
@@ -193,4 +189,4 @@ class TestRedirectMainPage:
             # Проверяем, что перешли на Дзен
             status_page.check_new_window_dzen()
             current_url = status_page.check_new_window_dzen()
-            assert current_url == "https://dzen.ru/?yredirect=true"
+            assert current_url == DZEN_URL
