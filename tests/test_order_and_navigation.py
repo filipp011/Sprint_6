@@ -141,8 +141,6 @@ class TestRedirectMainPage:
             order_page_for_whom_page.click_button_next()
             # Выбираем дату доставки
             order_rent_page.click_when_delivery()
-            # Ожидаем что меню с датами появилось
-            order_rent_page.wait_list_day()
             order_rent_page.select_delivery_date(delivery_date)
             # Выбор сутки
             order_rent_page.click_select_time(rent_time)
