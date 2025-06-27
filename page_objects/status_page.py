@@ -1,18 +1,17 @@
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from locators.order_locators import OrderLocators
 from page_objects.base_page import BasePage
+from selenium.webdriver.support import expected_conditions as EC
 
 class StatusPage(BasePage):
     def __init__(self, driver):
         # Инициализация родительского класса
-        super().__init__(driver) 
-    
+        super().__init__(driver, OrderLocators)  # Передаем локаторы
+
     # Клик на лого Самоката
     def click_logo_samokat(self):
-        self.driver.find_element(*OrderLocators.BTN_SAMOKAT).click()
+        self.click(OrderLocators.BTN_SAMOKAT)  # Используем метод из BasePage
 
-    # Проверяем что перешли на главную страницу Яндекс Самоката
+    # Проверяем, что перешли на главную страницу Яндекс Самоката
     def get_url_main_page(self):
         expected_url = "https://qa-scooter.praktikum-services.ru/"
         current_url = self.driver.current_url
@@ -20,19 +19,20 @@ class StatusPage(BasePage):
 
     # Ожидаем появление нового окна
     def wait_new_window_dzen(self):
-        WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))
+        self.wait.until(EC.number_of_windows_to_be(2))  # Используем метод из BasePage
 
     def click_logo_and_switch_window(self):
-    # Клик на лого Яндекса
-        self.driver.find_element(*OrderLocators.BTN_LOGO_YA).click()
-    
-    # Переключаемся на новое окно
+        # Клик на лого Яндекса
+        self.click(OrderLocators.BTN_LOGO_YA)  # Используем метод из BasePage
+
+        # Переключаемся на новое окно
         new_window = self.driver.window_handles[1]
         self.driver.switch_to.window(new_window)
-    
-    # Проверяем что перешли на Дзен
+
+    # Проверяем, что перешли на Дзен
     def check_new_window_dzen(self):
-        WebDriverWait(self.driver, 10).until(EC.url_to_be("https://dzen.ru/?yredirect=true"))
+        self.wait.until(EC.url_to_be("https://dzen.ru/?yredirect=true"))  # Используем метод из BasePage
         current_url = self.driver.current_url
         return current_url
+
     

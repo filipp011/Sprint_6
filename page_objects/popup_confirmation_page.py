@@ -1,18 +1,17 @@
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from locators.order_locators import OrderLocators
 from page_objects.base_page import BasePage
 
 class PopUpConfirmation(BasePage):
     def __init__(self, driver):
         # Инициализация родительского класса
-        super().__init__(driver) 
+        super().__init__(driver, OrderLocators)  # Передаем локаторы
 
     # Ожидание поп-апа подтверждения
     def wait_pop_up_yes_or_no(self):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(OrderLocators.POP_UP_YES_NO))
+        self.wait_visible(OrderLocators.POP_UP_YES_NO)  # Используем метод из BasePage
 
     # Клик по кнопке Да-подтверждение заказа
     def click_button_yes(self):
-        self.driver.find_element(*OrderLocators.BTN_YES).click()
+        self.click(OrderLocators.BTN_YES)  # Используем метод из BasePage
+
         
