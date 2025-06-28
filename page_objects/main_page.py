@@ -14,12 +14,6 @@ class Main(BasePage):
         self.wait.until(EC.element_to_be_clickable(OrderLocators.BTN_ORDER_HEADER))
         self.click(OrderLocators.BTN_ORDER_HEADER)  # Кликаем по кнопке "Заказать" в заголовке
 
-    # Принять куки
-    def accept_cookies(self):
-        # Ожидание, что кнопка куки будет кликабельна
-        self.wait.until(EC.element_to_be_clickable(OrderLocators.COOKIE))
-        self.click(OrderLocators.COOKIE)  # Кликаем по кнопке куки
-
     # Метод для открытия главной страницы и принятия куки
     def open_main_page_and_accept_cookies(self):
         self.driver.get(BASE_URL)  # Открываем главную страницу, используя импортированный BASE_URL
