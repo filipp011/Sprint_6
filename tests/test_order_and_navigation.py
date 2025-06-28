@@ -16,7 +16,7 @@ class TestOrder:
         ("Иван", "Иванов", "Москва, ул. Пушкина, д. 1", "Бульвар Рокоссовского", "+79001234567", "Оставьте у двери", "29", "сутки", "black"),
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
-    def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
+    def test_order_success_text(self, driver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
 
         # Инициализация страниц
         main_page = Main(driver)
@@ -46,7 +46,7 @@ class TestRedirectMainPage:
         ("Иван", "Иванов", "Москва, ул. Пушкина, д. 1", "Бульвар Рокоссовского", "+79001234567", "Оставьте у двери", "29", "сутки", "black"),
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
-    def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
+    def test_order_success_text(self, driver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
         
         order_for_whom_page = ForWhom(driver)
         main_page = Main(driver)
@@ -80,7 +80,7 @@ class TestRedirectMainPage:
         ("Иван", "Иванов", "Москва, ул. Пушкина, д. 1", "Бульвар Рокоссовского", "+79001234567", "Оставьте у двери", "29", "сутки", "black"),
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
-        def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
+        def test_order_success_text(self, driver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
             order_for_whom_page = ForWhom(driver)
             main_page = Main(driver)
             order_rent_page = Rent(driver)
