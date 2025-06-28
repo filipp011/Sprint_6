@@ -39,11 +39,18 @@ class BasePage:
 
     @allure.step("Принимаем куки")
     def accept_cookies(self):
-        # Ожидание, что кнопка куки будет кликабельна
         self.wait.until(EC.element_to_be_clickable(self.locators.COOKIE)).click()
-
 
     @allure.step('Прокрутить до элемента и кликнуть')
     def scroll_and_click(self, locator):
         self.scroll_to_element(locator)
         self.click(locator)
+
+    @allure.step("Получаем текущий URL")
+    def get_current_url(self):
+        return self.driver.current_url
+
+    @allure.step("Переключаемся на новое окно")
+    def switch_to_window(self, window_index):
+        new_window = self.driver.window_handles[window_index]
+        self.driver.switch_to.window(new_window)

@@ -63,7 +63,7 @@ class TestRedirectMainPage:
         main_page.open_main_page_and_accept_cookies()
         
         # Оформление заказа
-        main_page.scroll_and_click_button(button)  # Используем метод для прокрутки и клика по кнопке
+        main_page.scroll_and_click_button(button)
 
         # Заполнение формы заказа
         order_for_whom_page.fill_order_form(name, last_name, address, metro, telephone)
@@ -73,14 +73,15 @@ class TestRedirectMainPage:
         
         # Подтверждение заказа
         popup_confirmation_page.click_button_yes()
-        # Кликаем переходим на страницу статуса заказа
+        
+        # Переход на страницу статуса заказа
         popup_number_order.click_button_status()
-        # Кликаем на часть лого самокат
+        
+        # Клик на логотип Самоката
         status_page.click_logo_samokat()
 
-        # Проверяем, что перешли на главную страницу Яндекс Самоката
-        status_page.get_url_main_page()
-        assert status_page.get_url_main_page()
+        current_url = status_page.is_on_main_page()
+        assert current_url == BASE_URL
 
 
     class TestRedirectDzen:
@@ -89,33 +90,35 @@ class TestRedirectMainPage:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey", OrderLocators.BTN_ORDER_FOOTER)
     ])
         def test_redirect_dzen_page(self, driver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color, button):
+        # Инициализация страниц
             order_for_whom_page = ForWhom(driver)
             main_page = Main(driver)
             order_rent_page = Rent(driver)
             popup_confirmation_page = PopUpConfirmation(driver)
             popup_number_order = PopUpNumberOrder(driver)
             status_page = StatusPage(driver)
-            
-            # Открытие страницы и принятие куки
-            main_page.open_main_page_and_accept_cookies()
-        
-            # Оформление заказа
-            main_page.scroll_and_click_button(button)  # Используем метод для прокрутки и клика по кнопке
 
-            # Заполнение формы заказа
+        # Открытие главной страницы и принятие куки
+            main_page.open_main_page_and_accept_cookies()
+
+        # Оформление заказа
+            main_page.scroll_and_click_button(button)  # Прокрутка и клик по кнопке
+
+        # Заполнение формы заказа
             order_for_whom_page.fill_order_form(name, last_name, address, metro, telephone)
-        
-            # Выбор даты доставки и деталей аренды
+
+        # Выбор даты доставки и деталей аренды
             order_rent_page.fill_rent_order_form(delivery_date, rent_time, color, comment)
-        
-            # Подтверждение заказа
+
+        # Подтверждение заказа
             popup_confirmation_page.click_button_yes()
-            # Кликаем переходим на страницу статуса заказа
+
+        # Переход на страницу статуса заказа
             popup_number_order.click_button_status()
-            # Кликаем на лого Яндекса
+
+        # Переход на страницу Дзен через клик на логотип Яндекса
             status_page.click_logo_and_switch_window()
-            # Проверяем, что перешли на Дзен
-            status_page.check_new_window_dzen()
-            
+
+        # Проверка, что перешли на Дзен
             current_url = status_page.check_new_window_dzen()
             assert current_url == DZEN_URL
