@@ -41,3 +41,9 @@ class BasePage:
     def accept_cookies(self):
         # Ожидание, что кнопка куки будет кликабельна
         self.wait.until(EC.element_to_be_clickable(self.locators.COOKIE)).click()
+
+
+    @allure.step('Прокрутить до элемента и кликнуть')
+    def scroll_and_click(self, locator):
+        self.scroll_to_element(locator)
+        self.click(locator)
