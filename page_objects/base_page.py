@@ -6,6 +6,7 @@ class BasePage:
     def __init__(self, driver, locators):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
+        self.locators = locators
 
     @allure.step("Открываем страницу")
     def open(self, url):
