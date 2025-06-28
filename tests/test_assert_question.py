@@ -53,12 +53,12 @@ class TestAssertQuestion:
         # Инициализация страницы FAQ с параметрами
         faq_page = Faq(driver, question_locator, answer_locator, expected_text)
         main_page = Main(driver)
-        # Открываем страницу
-        driver.get(BASE_URL)
-        # Кликаем на кнопку Принять куки
-        main_page.accept_cookies()
+
+        #Открытие страницы и принятие куки
+        main_page.open_main_page_and_accept_cookies()
         # Скроллим и кликаем по вопросу
         faq_page.scroll_to_element_and_click(question_locator)
+        
         # Получаем текст и сравниваем
         description = faq_page.get_description()
         assert description == expected_text

@@ -6,7 +6,6 @@ class BasePage:
     def __init__(self, driver, locators):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
-        self.locators = locators  # Сохраняем локаторы для использования в дочерних классах
 
     @allure.step("Открываем страницу")
     def open(self, url):
@@ -36,3 +35,8 @@ class BasePage:
     def scroll_to_element(self, locator):
         element = self.wait.until(EC.visibility_of_element_located(locator))
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+
+    @allure.step("Принимаем куки")
+    def accept_cookies(self):
+        # Ожидание, что кнопка куки будет кликабельна
+        self.wait.until(EC.element_to_be_clickable(self.locators.COOKIE)).click()

@@ -17,7 +17,6 @@ class TestOrder:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-        driver.get(BASE_URL)
 
         # Инициализация страниц
         main_page = Main(driver)
@@ -26,6 +25,8 @@ class TestOrder:
         popup_order_success = PopUpSuccess(driver)
         popup_confirmation_page = PopUpConfirmation(driver)
 
+        #Открытие страницы и принятие куки
+        main_page.open_main_page_and_accept_cookies()
         # Оформление заказа
         main_page.click_button_order()
         # Заполнение формы заказа
@@ -34,6 +35,7 @@ class TestOrder:
         order_rent_page.fill_rent_order_form(delivery_date, rent_time, color, comment)
         # Подтверждение заказа
         popup_confirmation_page.click_button_yes()
+
         # Проверка успешного оформления заказа
         result_text = popup_order_success.get_description()
         assert "Заказ оформлен" in result_text
@@ -45,7 +47,7 @@ class TestRedirectMainPage:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
     def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-        driver.get(BASE_URL)
+        
         order_for_whom_page = ForWhom(driver)
         main_page = Main(driver)
         order_rent_page = Rent(driver)
@@ -53,6 +55,8 @@ class TestRedirectMainPage:
         popup_number_order = PopUpNumberOrder(driver)
         status_page = StatusPage(driver)
 
+        #Открытие страницы и принятие куки
+        main_page.open_main_page_and_accept_cookies()
         # Оформление заказа
         main_page.click_button_order()
         # Заполнение формы заказа
@@ -65,9 +69,9 @@ class TestRedirectMainPage:
         popup_number_order.click_button_status()
         # Кликаем на часть лого самокат
         status_page.click_logo_samokat()
+
         # Проверяем, что перешли на главную страницу Яндекс Самоката
         status_page.get_url_main_page()
-
         assert status_page.get_url_main_page()
 
 
@@ -77,14 +81,15 @@ class TestRedirectMainPage:
         ("Петр", "Петров", "Москва, ул. Лермонтова, д. 2", "Черкизовская", "+79007654321", "Позвоните перед приездом", "27", "двое суток", "grey")
     ])
         def test_order_success_text(self, driver: WebDriver, name, last_name, address, metro, telephone, comment, delivery_date, rent_time, color):
-            driver.get(BASE_URL)
             order_for_whom_page = ForWhom(driver)
             main_page = Main(driver)
             order_rent_page = Rent(driver)
             popup_confirmation_page = PopUpConfirmation(driver)
             popup_number_order = PopUpNumberOrder(driver)
             status_page = StatusPage(driver)
-
+            
+            #Открытие страницы и принятие куки
+            main_page.open_main_page_and_accept_cookies()
             # Оформление заказа
             main_page.click_button_order()
             # Заполнение формы заказа
@@ -99,5 +104,6 @@ class TestRedirectMainPage:
             status_page.click_logo_and_switch_window()
             # Проверяем, что перешли на Дзен
             status_page.check_new_window_dzen()
+            
             current_url = status_page.check_new_window_dzen()
             assert current_url == DZEN_URL
