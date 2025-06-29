@@ -37,10 +37,6 @@ class BasePage:
         element = self.wait.until(EC.visibility_of_element_located(locator))
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
 
-    @allure.step("Принимаем куки")
-    def accept_cookies(self):
-        self.wait.until(EC.element_to_be_clickable(self.locators.COOKIE)).click()
-
     @allure.step('Прокрутить до элемента и кликнуть')
     def scroll_and_click(self, locator):
         self.scroll_to_element(locator)

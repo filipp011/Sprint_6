@@ -8,10 +8,9 @@ class Main(BasePage):
         # Инициализация родительского класса
         super().__init__(driver, OrderLocators)  # Передаем локаторы
 
-    # Метод для открытия главной страницы и принятия куки
     def open_main_page_and_accept_cookies(self):
         self.open(BASE_URL)  # Открываем главную страницу, используя импортированный BASE_URL
-        self.accept_cookies()  # Принимаем куки
+        self.click(self.locators.COOKIE)
 
     # Метод для прокрутки до кнопки и клика по ней
     def scroll_and_click_button(self, locator):
